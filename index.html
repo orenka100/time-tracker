@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>דיווח שעות</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#08091a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="שעות">
+</head>
+<body>
+
+  <!-- ── Main View ─────────────────────────────────────────────────────── -->
+  <div id="view-main" class="view">
+    <header>
+      <span class="app-label">דיווח שעות</span>
+      <div id="today-total" class="today-total"></div>
+      <div id="today-label" class="today-label hidden">שעות היום</div>
+    </header>
+
+    <!-- Status card (shown when checked in) -->
+    <div id="status-card" class="status-card hidden">
+      <div class="status-row">
+        <span class="status-pin">📍</span>
+        <span id="status-location" class="status-location"></span>
+      </div>
+      <div class="status-since">נכנסת ב-<span id="status-since"></span></div>
+      <div class="waveform" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- Check-out button (shown when checked in) -->
+    <button id="btn-checkout" class="btn-checkout hidden">
+      <span class="co-icon">🚪</span>יציאה
+    </button>
+
+    <!-- Check-in area (shown when NOT checked in) -->
+    <div id="checkin-area" class="checkin-area">
+      <p id="checkin-label" class="section-label">בחר מיקום לכניסה</p>
+      <div id="location-chips" class="location-chips"></div>
+
+      <div id="new-loc-wrap" class="new-loc-wrap">
+        <button id="btn-new-loc" class="chip chip-add">＋ מיקום חדש</button>
+        <div id="new-loc-row" class="new-loc-row hidden">
+          <input id="input-new-loc" type="text" placeholder="שם מיקום..." autocomplete="off">
+          <button id="btn-new-confirm" class="btn-confirm-new">✓</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <button id="btn-report" class="btn-footer">📊 דוח חודשי</button>
+    </footer>
+  </div>
+
+  <!-- ── Report View ────────────────────────────────────────────────────── -->
+  <div id="view-report" class="view hidden">
+    <header>
+      <button id="btn-back" class="btn-back">← חזרה</button>
+      <div class="month-nav">
+        <button id="btn-prev-month" class="btn-month">‹</button>
+        <h2 id="month-title"></h2>
+        <button id="btn-next-month" class="btn-month">›</button>
+      </div>
+      <div id="month-total" class="month-total"></div>
+    </header>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>תאריך</th>
+            <th>מיקום</th>
+            <th>כניסה</th>
+            <th>יציאה</th>
+            <th>שעות</th>
+          </tr>
+        </thead>
+        <tbody id="entries-tbody"></tbody>
+      </table>
+      <div id="no-entries" class="no-entries hidden">אין נתונים לחודש זה</div>
+    </div>
+
+    <footer>
+      <button id="btn-export" class="btn-footer">⬇️ ייצוא CSV</button>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/dexie@3.2.4/dist/dexie.js"></script>
+  <script src="db.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
